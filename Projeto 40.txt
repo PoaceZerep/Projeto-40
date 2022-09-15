@@ -1,0 +1,44 @@
+BD.js:
+
+const Sequelize = require ('sequelize');
+const sequelize = new Sequelize ('DB', 'admim','123456'), {dialect:'mysql', host:'localhost'};
+
+module.exports = sequelize;
+
+Index.js:
+(async()=>{
+    const database = require('./DB');
+    const produto = require('./Produto');
+
+    try {
+        const resultado = await database.sync();
+        console.log('conexao completed',resultado);
+    } catch (error){
+        console.log('conexão not completed ',error);
+    }
+})();
+
+Produto.js:
+
+const Sequelize = require('sequelize');
+const database = require(' ./db');
+
+const Produto = database.define('produto',{
+    ide: {
+        type: Sequelezi.INTEGER,
+        autoIncrement:true,
+        allowNull: false, 
+        primaryKey: true
+    },
+    nome: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    preco:{
+        type : Sequelize.DOUBLE
+    } 
+    descricao:Sequelize.STRING
+  
+})
+
+modulo.exports = Produto;
